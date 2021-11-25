@@ -1,0 +1,7 @@
+- name: Nofile_install 
+  hosts: client03
+  gather_facts: yes
+  roles: 
+    
+         - nofile
+         

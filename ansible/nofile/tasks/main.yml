@@ -1,0 +1,20 @@
+---
+# tasks file for nofile
+- name:  Number of open files in system
+  shell: echo "fs.file-max=64000" >> /etc/sysctl.conf
+  become: yes
+
+- name: To apply the above changes
+  shell: sysctl -p
+
+- name: Change limits in /etc/security/limits.conf
+  community.general.pam_limits:
+      domain: "*"
+      limit_type: "{{item}}"
+      limit_item: nofile
+      value: 64000
+  loop:
+      - soft
+      - hard
+
+    
